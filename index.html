@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>שאלון מיפוי – מוסדות גריאטריים | לב חב"ד</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#4a0c1d;--blue:#6b1126;--gold:#f08a2a;--bg:#f8f4f1;--card:#fff;--line:#e6d9d3;--muted:#667089;--err:#c0392b}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--navy);font-family:'Heebo',Arial,sans-serif;font-size:17px;line-height:1.6}
+#bar{position:fixed;top:0;right:0;height:4px;width:0;background:var(--gold);z-index:9}
+header{background:#fff;text-align:center;padding:18px 16px 0}
+header img{width:min(380px,80%);height:auto;display:block;margin:0 auto}
+.band{background:var(--blue);color:#fff;text-align:center;padding:26px 20px 70px;border-top:5px solid var(--gold)}
+.band h1{margin:0 auto 10px;max-width:720px;font-size:clamp(23px,5vw,33px);font-weight:800;line-height:1.3}
+.band p{margin:0 auto;max-width:620px;opacity:.92}
+main{max-width:760px;margin:-40px auto 60px;padding:0 14px}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 24px 12px;margin-bottom:18px;border-top:5px solid var(--blue)}
+section h2{margin:0 0 20px;font-size:22px;font-weight:700}
+.q{margin-bottom:24px}
+.q>label,.q>.lab{display:block;font-weight:500;margin-bottom:8px}
+.req{color:var(--err);margin-inline-start:4px;font-weight:700}
+.opt{color:var(--muted);font-size:14px;font-weight:400;margin-inline-start:6px}
+.hint{color:var(--muted);font-size:15px;margin:-4px 0 10px}
+input[type=text],input[type=tel],input[type=email],textarea{width:100%;font:inherit;padding:11px 13px;border:1.5px solid var(--line);border-radius:9px;background:#fafbfd;color:var(--navy)}
+textarea{min-height:120px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px #f08a2a40}
+.opts{display:grid;gap:8px}
+.o{display:flex;align-items:flex-start;gap:11px;padding:10px 13px;border:1.5px solid var(--line);border-radius:9px;cursor:pointer;background:#fafbfd}
+.o:hover{border-color:#e9b27a}
+.o input{margin:5px 0 0;width:18px;height:18px;accent-color:var(--blue);flex:none}
+.o:has(input:checked){border-color:var(--blue);background:#fdf0e2}
+.o .oth{flex:1;padding:4px 9px;margin-top:-3px}
+.q.bad>label,.q.bad>.lab{color:var(--err)}
+.q.bad input[type=text],.q.bad input[type=tel],.q.bad .o{border-color:var(--err)}
+.msg{display:none;color:var(--err);font-size:14px;margin-top:6px}
+.q.bad .msg{display:block}
+.actions{text-align:center;padding:10px 0}
+button{font:inherit;font-weight:700;cursor:pointer;border:0;border-radius:10px;padding:14px 34px;font-size:18px}
+.go{background:var(--blue);color:#fff;border-bottom:4px solid var(--gold)}.go:hover{background:#4a0c1d}
+.go:disabled{opacity:.6;cursor:wait}
+.alt{background:var(--navy);color:#fff}.ghost{background:transparent;color:var(--blue);border:1.5px solid var(--blue)}
+#done{display:none;background:#fff;border:1px solid var(--line);border-top:5px solid var(--gold);border-radius:14px;padding:44px 24px;text-align:center}
+#done h2{font-size:26px;margin:0 0 8px}#done p{color:var(--muted);margin:0 0 24px}
+#done .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+#note{display:none;background:#fff8e6;border:1px solid #ecd699;border-radius:10px;padding:12px 16px;margin-bottom:18px}
+
+.more{margin:8px 0 0;background:#fff;border:2px dashed var(--gold);border-radius:14px;padding:20px;text-align:center}
+.more h3{margin:0 0 12px;font-size:19px}.more p{margin:12px 0 0;color:var(--muted);font-size:15px}
+#fail{display:none;color:var(--err);text-align:center;margin-bottom:10px}
+@media(max-width:520px){section{padding:20px 15px 6px}body{font-size:16px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<header><img src="logo.png" alt="לב חב&quot;ד – המחלקה לייעוץ והכוונה רפואית"></header>
+<div class="band">
+  <h1>שאלון מיפוי – מוסדות גריאטריים, מרכזי שיקום ובתי אבות</h1>
+  <p>שליח יקר, מילוי הפרטים יסייע לנו לבחון את הצרכים בשטח ולגבש את תוכניות הסיוע של "לב חב"ד".</p>
+</div>
+<main>
+<div id="note">הדיווח על המוסד הקודם נשלח ✓ הפרטים האישיים שלך נשמרו. מלא עכשיו את פרטי המוסד הנוסף.</div>
+  <form id="f" novalidate></form>
+  <div id="done">
+    <h2>תודה רבה, התשובות התקבלו ✓</h2>
+    <p>הדיווח נשמר בהצלחה.</p>
+    <div class="row">
+      <button class="alt" id="more">דווח על מוסד נוסף באזורך</button>
+      <button class="ghost" id="fin">סיום</button>
+    </div>
+  </div>
+</main>
+<script>
+// ===== הגדרה: כתובת היעד לשמירת התשובות (Google Apps Script). ראה הוראות. אם ריק – התשובות יורדות כקובץ אקסל/CSV =====
+const SUBMIT_URL = 'https://script.google.com/macros/s/AKfycbwXCYpD1QPOBSctWX3I6fMV3FjEQ6gmODve54WipOhRicZBFKRBuin0v4ybhmEy_Tzu/exec';
+// ===== אפשרות פשוטה בלי הגדרות: כתובת המייל שלך. אם SUBMIT_URL ריק והמייל מולא – השאלון נשלח אליך במייל =====
+const RECIPIENT_EMAIL = '';
+
+const S = [
+{t:'חלק 1: פרטי השליח והאזור', f:[
+ {n:'שם מלא',k:'text',r:1},
+ {n:'טלפון נייד',k:'tel',r:1},
+ {n:'דואר אלקטרוני',k:'email'},
+ {n:'עיר / אזור השליחות',k:'text',r:1},
+ {n:'מעמד הפעילות באזור',k:'radio',r:1,o:['שליח ראשי / מנהל בית חב"ד מרכזי','שליח בשכונה / תחת בית חב"ד המרכזי בעיר'],x:1}]},
+{t:'חלק 2: פרטי המוסד / המרכז', f:[
+ {n:'סוג המוסד',l:'סוג המוסד (ניתן לסמן כמה)',k:'check',o:['בית אבות / דיור מוגן','מרכז שיקום','מחלקה סיעודית / גריאטרית'],x:1},
+ {n:'שם המוסד',l:'שם המוסד / בית האבות / מרכז השיקום',k:'text',r:1},
+ {n:'גודל המוסד',l:'הערכת גודל המוסד (מספר מיטות / דיירים)',k:'radio',o:['עד 50 דיירים','50–150 דיירים','150–300 דיירים','מעל 300 דיירים','לא ידוע מדויק']}]},
+{t:'חלק 3: קשר עם הנהלת המוסד ושירותי הדת', f:[
+ {n:'קשר עם הנהלה',l:'האם קיים קשר עם הנהלת המוסד / הצוות הבכיר?',h:'מנהל, סמנכ"ל, מנהל אדמיניסטרטיבי וכד\'',k:'radio',o:['כן, קשר רציף וטוב','קשר חלקי / סביב אירועים בלבד','קשר ראשוני בלבד','לא קיים קשר כרגע']},
+ {n:'רב המוסד',l:'שירותי דת ורב המוסד',k:'radio',o:['קיים רב מוסד / מנהל שירותי דת ויש איתו היכרות וקשר','קיים רב מוסד אך אין איתו היכרות','ידוע לנו שאין רב / מנהל שירותי דת במקום','לא ידוע']},
+ {n:'שם רב המוסד / איש קשר',l:'שם רב המוסד / איש הקשר (אם ידוע)',k:'text'},
+ {n:'מטבח וכשרות',k:'radio',o:['פועל במקום מטבח פעיל המצריך משגיח כשרות','אין מטבח פעיל (הסעדת חוץ / קייטרינג)','לא ידוע']},
+ {n:'דרישה למשגיח / רב',l:'צורך ודרישה למשגיח כשרות / רב מטעמם',k:'radio',o:['בעבר העלו מולנו דרישה/צורך באיש צוות לכשרות / שירותי דת','להערכתנו יש נכונות/צורך במוסד להעסיק רב/משגיח מטעמם','אין דרישה כזו כרגע','לא ידוע']},
+ {n:'העסקה ישירה',l:'אפשרות להעסקה ישירה / השתכרות מהמוסד',h:'האם יש היתכנות שהפעיל/השליח יועסק או ישתכר ישירות מהמוסד, כגון בתפקיד רב המוסד, משגיח, רכז תרבות/רוח וכד\'',k:'radio',o:['כן, יש פוטנציאל גבוה להעסקה ישירה מהמוסד','קיים סיכוי, מצריך בחינה ומו"מ','אין היתכנות כזו (המוסד לא משלם / לא מציע תקנים)','לא ידוע']}]},
+{t:'חלק 4: מצב הפעילות כיום', f:[
+ {n:'פעילות חב"ד כיום',l:'האם מתקיימת כיום פעילות חב"ד במוסד זה?',k:'radio',r:1,o:['כן, פעילות קבועה לאורך כל השנה','כן, פעילות חלקית / סביב חגים בלבד','לא מתקיימת פעילות כרגע, אך יש קשר ראשוני','לא מתקיימת פעילות כלל']},
+ {n:'מי מבצע',l:'מי מנהל / מבצע את הפעילות בפועל?',k:'radio',o:['אני באופן אישי','שליח נוסף / פעיל מטעמי','מתנדבים / אנ"ש מהקהילה','כרגע אין מי שמפעיל'],x:1},
+ {n:'פעילויות קיימות',l:'אילו מבין הפעילויות הבאות מתקיימות כיום במוסד?',h:'סמן את כל הרלוונטי',k:'check',o:['מבצע תפילין בימי שישי (בחורים / תמימים / אנ"ש)','מבצע תפילין באופן שוטף / קבוע במהלך השבוע','חלוקת נרות שבת קודש בימי שישי','תפילות, קידוש או ביקורי שבת','ראש השנה / יום כיפור (תקיעת שופר וכד\')','סוכות (זיכוי בד\' מינים / סוכה ניידת / אירוע חג)','חנוכה (הדלקת נרות / מסיבות חנוכה)','פורים (קריאת מגילה / חלוקת משלוחי מנות)','פסח (חלוקת מצות / ליל סדר)','שבועות (קריאת עשרת הדברות / כיבוד חלבי)','שיעורי תורה / שיחות אישיות קבועות','מענה לבקשות ייחודיות/פרטניות שמגיעות מהנהלת המוסד או המטופלים','פעילות או עבודה מול אנשי הצוות במוסד','!לא מתקיימת פעילות'],x:1}]},
+{t:'חלק 5: צרכים, שאיפות והערות', f:[
+ {n:'צרכים',l:'מה הצרכים העיקריים שסיוע מ"לב חב"ד" יוכל לקדם במוסד זה? (ניתן לסמן כמה)',k:'check',o:['ערכות תוכן, עזרים וערכות חג מותאמות','תקציב ומשאבים כספיים לפעילות','הכוונה, ייעוץ והדרכה מקצועית','גיוס, איתור וליווי מתנדבים'],x:1},
+ {n:'הערות',l:'רעיונות, תובנות או הערות נוספות',k:'area'}]}
+];
+
+const f = document.getElementById('f');
+const esc = s => s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+const sub = s => s.l || s.n;
+
+f.innerHTML = S.map((sec,i)=>`<section data-s="${i}"><h2>${sec.t}</h2>`+sec.f.map(q=>{
+  const lab = `${q.l||q.n}${q.r?'<span class="req">*</span>':'<span class="opt">(רשות)</span>'}`;
+  let body='';
+  if(q.k==='area') body=`<textarea name="${esc(q.n)}"></textarea>`;
+  else if(q.k==='radio'||q.k==='check'){
+    const t=q.k==='radio'?'radio':'checkbox';
+    body='<div class="opts">'+q.o.map(o=>{const ex=o[0]==='!';const v=ex?o.slice(1):o;
+      return `<label class="o"><input type="${t}" name="${esc(q.n)}" value="${esc(v)}"${ex?' data-ex="1"':''}> <span>${v}</span></label>`}).join('')
+      +(q.x?`<label class="o"><input type="${t}" name="${esc(q.n)}" value="__other"> <span>אחר:</span><input type="text" class="oth" data-for="${esc(q.n)}" aria-label="אחר"></label>`:'')+'</div>';
+  } else body=`<input type="${q.k}" name="${esc(q.n)}" ${q.k==='tel'?'inputmode="tel" autocomplete="tel"':''}>`;
+  return `<div class="q" data-n="${esc(q.n)}"><label class="lab">${lab}</label>${q.h?`<div class="hint">${q.h}</div>`:''}${body}<div class="msg">שדה חובה, נא למלא</div></div>`;
+}).join('')+'</section>').join('')
++'<div id="fail">השליחה נכשלה. בדוק חיבור לאינטרנט ונסה שוב.</div><div class="actions"><button class="go" type="submit" id="sb">שליחת השאלון</button></div>'
++'<div class="more"><h3>🔗 מעוניין לדווח על מוסד נוסף באזורך?</h3><button type="button" class="ghost" id="more2">לחץ כאן למילוי טופס נוסף עבור מוסד נוסף</button><p>בלחיצה זו הדיווח הנוכחי נשלח, והפרטים האישיים שלך יישמרו ויחזרו ישר לחלק 2.</p></div>';
+
+// בחירה בלעדית: "לא מתקיימת פעילות"
+f.addEventListener('change',e=>{
+  const el=e.target; if(el.type!=='checkbox')return;
+  const grp=[...f.querySelectorAll(`input[type=checkbox][name="${el.name}"]`)];
+  if(el.dataset.ex&&el.checked) grp.forEach(c=>{if(c!==el)c.checked=false});
+  else if(el.checked) grp.forEach(c=>{if(c.dataset.ex)c.checked=false});
+});
+// הקלדה ב"אחר" מסמנת אותו אוטומטית
+f.addEventListener('input',e=>{
+  if(e.target.classList.contains('oth')&&e.target.value){
+    const r=e.target.closest('.o').querySelector('input:not(.oth)'); r.checked=true; r.dispatchEvent(new Event('change',{bubbles:true}));
+  }
+});
+
+function read(q){
+  const box=f.querySelector(`[data-n="${CSS.escape(q.n)}"]`);
+  if(q.k==='radio'||q.k==='check'){
+    const vals=[...box.querySelectorAll('input:not(.oth):checked')].map(i=>i.value==='__other'?('אחר: '+(box.querySelector('.oth').value.trim()||'—')):i.value);
+    return q.k==='radio'?(vals[0]||''):vals.join(' | ');
+  }
+  return box.querySelector('input,textarea').value.trim();
+}
+const all=S.flatMap(s=>s.f);
+
+let MORE=false;
+f.addEventListener('submit',async e=>{
+  e.preventDefault();
+  let first=null;
+  all.forEach(q=>{
+    const box=f.querySelector(`[data-n="${CSS.escape(q.n)}"]`);
+    const bad=!!(q.r&&!read(q)); box.classList.toggle('bad',bad); if(bad&&!first)first=box;
+  });
+  if(first){MORE=false;first.scrollIntoView({block:'center'});return}
+  const data={'תאריך ושעה':new Date().toLocaleString('he-IL')};
+  all.forEach(q=>data[q.n]=read(q));
+  const b=document.getElementById('sb'); b.disabled=true; b.textContent='שולח…';
+  document.getElementById('fail').style.display='none';
+  try{
+    if(SUBMIT_URL){
+      await fetch(SUBMIT_URL,{method:'POST',mode:'no-cors',body:new URLSearchParams(data)});
+    } else if(RECIPIENT_EMAIL){
+      const body=Object.entries(data).map(([k,v])=>k+': '+v).join('\n');
+      location.href='mailto:'+RECIPIENT_EMAIL+'?subject='+encodeURIComponent('שאלון מיפוי – '+data['שם מלא']+' – '+data['שם המוסד'])+'&body='+encodeURIComponent(body);
+    } else {
+      const q=v=>'"'+String(v).replace(/"/g,'""')+'"';
+      const csv='\ufeff'+Object.keys(data).map(q).join(',')+'\n'+Object.values(data).map(q).join(',');
+      const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+      a.download='שאלון-מיפוי.csv';a.click();
+    }
+    if(MORE){MORE=false;resetMore()}
+    else{f.style.display='none';document.getElementById('note').style.display='none';
+    document.getElementById('done').style.display='block';window.scrollTo(0,0);}
+  }catch(err){MORE=false;const fl=document.getElementById('fail');fl.style.display='block';fl.scrollIntoView({block:'center'})}
+  b.disabled=false;b.textContent='שליחת השאלון';
+});
+
+// מוסד נוסף: שומר חלק 1, מנקה חלקים 2–5 וחוזר לחלק 2
+function resetMore(){
+  f.querySelectorAll('section:not([data-s="0"]) input,section:not([data-s="0"]) textarea').forEach(i=>{
+    if(i.type==='radio'||i.type==='checkbox')i.checked=false;else i.value='';
+  });
+  f.querySelectorAll('.bad').forEach(x=>x.classList.remove('bad'));
+  document.getElementById('done').style.display='none';f.style.display='block';
+  document.getElementById('note').style.display='block';
+  document.querySelector('section[data-s="1"]').scrollIntoView();
+}
+document.getElementById('more').onclick=resetMore;
+document.getElementById('more2').onclick=()=>{MORE=true;f.requestSubmit()};
+document.getElementById('fin').onclick=()=>{location.reload()};
+
+addEventListener('scroll',()=>{
+  const h=document.documentElement;document.getElementById('bar').style.width=(100*h.scrollTop/(h.scrollHeight-h.clientHeight||1))+'%';
+});
+</script>
+</body>
+</html>
